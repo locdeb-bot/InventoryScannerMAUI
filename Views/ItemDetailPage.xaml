@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InventoryScannerMAUI.Views.ItemDetailPage"
+             Title="Item Details">
+
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DarkBackground}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackLayout Grid.Row="0" Padding="20" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource CardBackgroundDark}}">
+            <Label Text="Item Details" FontSize="24" FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource TextColorDark}}" />
+        </StackLayout>
+
+        <!-- Form Content -->
+        <ScrollView Grid.Row="1" Padding="20">
+            <StackLayout Spacing="15">
+                <Label Text="Name" FontSize="14" Opacity="0.7" />
+                <Entry x:Name="NameEntry" FontSize="16" />
+
+                <Label Text="SKU" FontSize="14" Opacity="0.7" />
+                <Entry x:Name="SKUEntry" FontSize="16" />
+
+                <Label Text="Barcode" FontSize="14" Opacity="0.7" />
+                <Entry x:Name="BarcodeEntry" FontSize="16" />
+
+                <Label Text="Quantity" FontSize="14" Opacity="0.7" />
+                <Entry x:Name="QuantityEntry" FontSize="16" Keyboard="Numeric" />
+
+                <Label Text="Location" FontSize="14" Opacity="0.7" />
+                <Entry x:Name="LocationEntry" FontSize="16" />
+
+                <Label Text="Description" FontSize="14" Opacity="0.7" />
+                <Editor x:Name="DescriptionEntry" HeightRequest="100" FontSize="16" />
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Action Buttons -->
+        <StackLayout Grid.Row="2" Padding="20" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource CardBackgroundDark}}">
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" BackgroundColor="#8E8E93" TextColor="White" CornerRadius="10"
+                        Clicked="OnCancelClicked" HorizontalOptions="FillAndExpand" />
+                <Button Text="Save" BackgroundColor="#007AFF" TextColor="White" CornerRadius="10"
+                        Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="10,0,0,0" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

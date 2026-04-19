@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- iOS and MacCatalyst targets for macOS build -->
+    <TargetFrameworks>net10.0-ios;net10.0-android;net10.0-maccatalyst</TargetFrameworks>
+    <!-- Windows target for Windows builds -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Linux fallback for CI/CD (Android only) -->
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('ios')) And !$([MSBuild]::IsOSPlatform('android')) And !$([MSBuild]::IsOSPlatform('windows'))">net10.0-android</TargetFrameworks>
+
+    <UseMaui>true</UseMaui>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>InventoryScannerMAUI</RootNamespace>
+    <AssemblyName>InventoryScannerMAUI</AssemblyName>
+    <ApplicationTitle>Inventory Scanner</ApplicationTitle>
+    <ApplicationId>com.inventoryscanner.app</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <!-- iOS Configuration -->
+    <SupportedOSPlatformVersion>16.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <CodesignProvisionerProfileName>Apple Development</CodesignProvisionerProfileName>
+
+    <!-- Enable native build -->
+    <EnableDefaultMauiItems>true</EnableDefaultMauiItems>
+    <MauiSdkVersion>10.0.0</MauiSdkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net.Maui" Version="1.5.1" />
+  </ItemGroup>
+
+</Project>
