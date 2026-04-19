@@ -15,6 +15,7 @@ public partial class SettingsPage : ContentPage
 
         Loaded += async (s, e) =>
         {
+            _viewModel.SetNavigation(Navigation);
             await _viewModel.InitializeAsync();
         };
     }

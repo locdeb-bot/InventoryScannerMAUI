@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using InventoryScannerMAUI.Data;
 using InventoryScannerMAUI.Models;
+using InventoryScannerMAUI.Views;
 
 namespace InventoryScannerMAUI.ViewModels;
 
@@ -25,9 +26,45 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty]
     private string _appVersion = "1.0.0";
 
+    // Navigation property for accessing the page
+    private INavigation? _navigation;
+
     public SettingsViewModel()
     {
         _dbContext = new InventoryDbContext();
+    }
+
+    public void SetNavigation(INavigation navigation)
+    {
+        _navigation = navigation;
+    }
+
+    [RelayCommand]
+    private async Task ScanConnectionString()
+    {
+        try
+        {
+            var scannerPage = new ConnectionStringScannerPage();
+
+            // Subscribe to the result event
+            scannerPage.ConnectionStringScanned += OnConnectionStringScanned;
+
+            await _navigation?.PushAsync(scannerPage);
+        }
+        catch (Exception ex)
+        {
+            SyncStatus = $"Scan failed: {ex.Message}";
+        }
+    }
+
+    private void OnConnectionStringScanned(object? sender, string? connectionString)
+    {
+        if (!string.IsNullOrEmpty(connectionString))
+        {
+            SqlServerConnectionString = connectionString;
+            UseSqlServer = true;
+            SyncStatus = "Connection string scanned successfully!";
+        }
     }
 
     public async Task InitializeAsync()

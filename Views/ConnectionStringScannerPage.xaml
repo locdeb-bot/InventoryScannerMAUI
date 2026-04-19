@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
+             x:Class="InventoryScannerMAUI.Views.ConnectionStringScannerPage"
+             Title="Scan Connection String">
+
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DarkBackground}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackLayout Grid.Row="0" Padding="20,15" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource CardBackgroundDark}}">
+            <Label Text="Scan Connection String" FontSize="24" FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource TextColorDark}}" />
+            <Label Text="Point your camera at a QR code containing a SQL Server connection string"
+                   FontSize="14" Opacity="0.7" TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource TextColorDark}}" />
+        </StackLayout>
+
+        <!-- Camera Scanner -->
+        <Border Grid.Row="1" Margin="20" CornerRadius="12" BackgroundColor="Black">
+            <zxing:CameraBarcodeReaderView x:Name="CameraView"
+                                           BarcodesDetected="CameraView_BarcodesDetected" />
+        </Border>
+
+        <!-- Preview of scanned data -->
+        <Border Grid.Row="2" Margin="20,0,20,20" CornerRadius="12"
+                BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceColor}, Dark={StaticResource CardBackgroundDark}}"
+                Padding="15">
+            <StackLayout>
+                <Label Text="Scanned Data:" FontSize="14" Opacity="0.7" />
+                <Frame BackgroundColor="#F0F0F0" CornerRadius="8" Padding="10" HasShadow="False">
+                    <Label x:Name="ScannedDataLabel" Text="Waiting for scan..."
+                           FontSize="14" MaxLines="5" LineBreakMode="WordWrap" />
+                </Frame>
+
+                <Button x:Name="UseConnectionStringButton" Text="Use This Connection String"
+                        BackgroundColor="#007AFF" TextColor="White" CornerRadius="10"
+                        Margin="0,15,0,0" IsEnabled="False" Clicked="UseConnectionStringButton_Clicked" />
+
+                <Button Text="Scan Again" BackgroundColor="#34C759" TextColor="White"
+                        CornerRadius="10" Margin="0,10,0,0" Clicked="ScanAgainButton_Clicked" />
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

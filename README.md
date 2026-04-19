@@ -7,6 +7,7 @@ A cross-platform inventory management mobile application built with .NET MAUI an
 - **Barcode Scanning**: Real-time camera barcode scanning supporting QR codes, Code128, Code39, EAN-13, and UPC-A formats
 - **Inventory Management**: View, add, edit, and delete inventory items
 - **SQL Database Integration**: Local SQLite storage with optional Microsoft SQL Server sync
+- **Connection String Scanning**: Scan QR codes containing SQL Server connection strings for easy setup
 - **Offline Support**: Works offline with local database, syncs when connected
 - **Modern UI**: iOS Human Interface Guidelines compliant design with dark mode support
 
@@ -66,9 +67,21 @@ InventoryScannerMAUI/
 
 To configure SQL Server sync, go to Settings tab and:
 1. Enable "Use SQL Server" toggle
-2. Enter your SQL Server connection string
+2. Enter your SQL Server connection string (or scan a QR code)
 3. Test the connection
 4. Use "Sync to Server" to sync pending changes
+
+**Option: Scan Connection String via QR Code**
+Instead of manually typing the connection string, you can:
+1. Click "Scan Connection String (QR Code)"
+2. Point the camera at a QR code containing your SQL Server connection string
+3. The scanned value will be automatically filled in
+
+**Creating a QR Code for your connection string:**
+Many online QR code generators support text. Simply encode your connection string as plain text:
+```
+Server=myserver.database.windows.net;Database=inventory;User Id=user;Password=password;
+```
 
 Example connection string:
 ```

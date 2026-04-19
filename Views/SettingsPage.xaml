@@ -42,8 +42,10 @@
                                 <Entry Placeholder="Server=...;Database=...;User Id=...;Password=..."
                                        Text="{Binding SqlServerConnectionString, Mode=TwoWay}"
                                        IsPassword="True" />
+                                <Button Text="Scan Connection String (QR Code)" BackgroundColor="#FF9500" TextColor="White"
+                                        CornerRadius="8" Command="{Binding ScanConnectionStringCommand}" />
                                 <Button Text="Test Connection" BackgroundColor="#34C759" TextColor="White"
-                                        CornerRadius="8" Command="{Binding TestConnectionCommand}" />
+                                        CornerRadius="8" Command="{Binding TestConnectionCommand}" Margin="0,10,0,0" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
