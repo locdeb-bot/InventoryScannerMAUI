@@ -39,7 +39,7 @@ public partial class ScannerViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task OnBarcodeDetected(string barcode)
+    public async Task OnBarcodeDetected(string barcode)
     {
         if (string.IsNullOrWhiteSpace(barcode)) return;
 
@@ -83,13 +83,13 @@ public partial class ScannerViewModel : ViewModelBase
             {
                 FoundItem.CreatedAt = DateTime.UtcNow;
                 FoundItem.LastUpdated = DateTime.UtcNow;
-                FoundItem.SyncStatus = SyncStatus.PendingSync;
+                FoundItem.SyncStatus = Models.SyncStatus.PendingSync;
                 _dbContext.InventoryItems.Add(FoundItem);
             }
             else
             {
                 FoundItem.LastUpdated = DateTime.UtcNow;
-                FoundItem.SyncStatus = SyncStatus.PendingSync;
+                FoundItem.SyncStatus = Models.SyncStatus.PendingSync;
                 _dbContext.InventoryItems.Update(FoundItem);
             }
 
@@ -110,7 +110,7 @@ public partial class ScannerViewModel : ViewModelBase
         {
             FoundItem.Quantity++;
             FoundItem.LastUpdated = DateTime.UtcNow;
-            FoundItem.SyncStatus = SyncStatus.PendingSync;
+            FoundItem.SyncStatus = Models.SyncStatus.PendingSync;
             _dbContext.InventoryItems.Update(FoundItem);
             await _dbContext.SaveChangesAsync();
             OnPropertyChanged(nameof(FoundItem));
@@ -124,7 +124,7 @@ public partial class ScannerViewModel : ViewModelBase
         {
             FoundItem.Quantity--;
             FoundItem.LastUpdated = DateTime.UtcNow;
-            FoundItem.SyncStatus = SyncStatus.PendingSync;
+            FoundItem.SyncStatus = Models.SyncStatus.PendingSync;
             _dbContext.InventoryItems.Update(FoundItem);
             await _dbContext.SaveChangesAsync();
             OnPropertyChanged(nameof(FoundItem));

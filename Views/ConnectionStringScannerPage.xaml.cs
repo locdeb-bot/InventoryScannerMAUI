@@ -17,7 +17,7 @@ public partial class ConnectionStringScannerPage : ContentPage
         InitializeComponent();
         CameraView.Options = new BarcodeReaderOptions
         {
-            Formats = BarcodeFormats.QrCode,
+            Formats = BarcodeFormats.All,
             AutoRotate = true,
             Multiple = false
         };

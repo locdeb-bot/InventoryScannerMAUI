@@ -1,6 +1,7 @@
 using Microsoft.Maui.Controls;
 using InventoryScannerMAUI.ViewModels;
 using ZXing.Net.Maui;
+using ZXing.Net.Maui.Controls;
 
 namespace InventoryScannerMAUI.Views;
 
@@ -20,7 +21,7 @@ public partial class ScannerPage : ContentPage
             SetupCamera();
         };
 
-        CameraView.BarcodeDetected += OnBarcodeDetected;
+        CameraView.BarcodesDetected += OnBarcodesDetected;
     }
 
     private void SetupCamera()
@@ -33,11 +34,15 @@ public partial class ScannerPage : ContentPage
         };
     }
 
-    private void OnBarcodeDetected(object? sender, BarcodeDetectedEventArgs e)
+    private void OnBarcodesDetected(object? sender, BarcodeDetectionEventArgs e)
     {
         Dispatcher.Dispatch(async () =>
         {
-            await _viewModel.OnBarcodeDetectedCommand.ExecuteAsync(e.Value);
+            var barcode = e.Results?.FirstOrDefault();
+            if (barcode != null)
+            {
+                await _viewModel.OnBarcodeDetected(barcode.Value);
+            }
         });
     }
 

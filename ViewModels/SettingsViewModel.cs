@@ -84,12 +84,12 @@ public partial class SettingsViewModel : ViewModelBase
             if (UseSqlServer && !string.IsNullOrWhiteSpace(SqlServerConnectionString))
             {
                 var pendingItems = await _dbContext.InventoryItems
-                    .Where(i => i.SyncStatus == SyncStatus.PendingSync)
+                    .Where(i => i.SyncStatus == Models.SyncStatus.PendingSync)
                     .ToListAsync();
 
                 foreach (var item in pendingItems)
                 {
-                    item.SyncStatus = SyncStatus.Synced;
+                    item.SyncStatus = Models.SyncStatus.Synced;
                     _dbContext.InventoryItems.Update(item);
                 }
 
@@ -106,12 +106,12 @@ public partial class SettingsViewModel : ViewModelBase
             SyncStatus = $"Sync failed: {ex.Message}";
 
             var failedItems = await _dbContext.InventoryItems
-                .Where(i => i.SyncStatus == SyncStatus.PendingSync)
+                .Where(i => i.SyncStatus == Models.SyncStatus.PendingSync)
                 .ToListAsync();
 
             foreach (var item in failedItems)
             {
-                item.SyncStatus = SyncStatus.Failed;
+                item.SyncStatus = Models.SyncStatus.Failed;
                 _dbContext.InventoryItems.Update(item);
             }
 

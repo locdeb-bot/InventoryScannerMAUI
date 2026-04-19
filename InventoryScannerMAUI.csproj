@@ -18,14 +18,23 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
 
-    <!-- iOS Configuration -->
-    <SupportedOSPlatformVersion>16.0</SupportedOSPlatformVersion>
-    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-    <CodesignProvisionerProfileName>Apple Development</CodesignProvisionerProfileName>
-
     <!-- Enable native build -->
     <EnableDefaultMauiItems>true</EnableDefaultMauiItems>
     <MauiSdkVersion>10.0.0</MauiSdkVersion>
+  </PropertyGroup>
+
+  <!-- iOS-specific settings -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net10.0-ios'))">
+    <SupportedOSPlatformVersion>16.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+    <CodesignProvisionerProfileName>Apple Development</CodesignProvisionerProfileName>
+  </PropertyGroup>
+
+  <!-- Android-specific settings -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net10.0-android'))">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+    <AndroidSupportedOSPlatformVersion>21.0</AndroidSupportedOSPlatformVersion>
+    <AndroidTargetSdkVersion>34</AndroidTargetSdkVersion>
   </PropertyGroup>
 
   <ItemGroup>
